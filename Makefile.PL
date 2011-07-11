@@ -19,7 +19,7 @@ WriteMakefile(
 
 sub MY::postamble {
 "
-\$(MYEXTLIB): id3v2_wrapper.cc Makefile
-\tg++ -c id3v2_wrapper.cc -o \$(INC) \$(CCFLAGS) \$(OPTIMISE) id3v2_wrapper\$(LIB_EXT)
+\$(MYEXTLIB): id3v2_wrapper.cc id3v2_wrapper.h Makefile
+\tg++ -c id3v2_wrapper.cc \$(INC) \$(CCFLAGS) \$(OPTIMISE) -o id3v2_wrapper\$(LIB_EXT)
 ";
 }

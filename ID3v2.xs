@@ -8,12 +8,12 @@
 MODULE = Audio::TagLib::ID3v2		PACKAGE = Audio::TagLib::ID3v2
 
 void
-say_hello(self, filename)
+_load(self, filename)
     SV  *self
     char *filename
 PREINIT:
     HV *real_obj = (HV *) SvRV(self);
 CODE:
-    id3v2_wrapper_data *data = _load(filename);
+    id3v2_wrapper_data *data = _wrapper_load(filename);
     hv_store(real_obj, "data", 4, data, 0);
 
