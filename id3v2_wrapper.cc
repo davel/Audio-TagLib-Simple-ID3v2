@@ -1,8 +1,5 @@
+#include "id3v2_wrapper.h"
 #include <iostream>
-
-extern "C" {
-    void hello();
-}
 
 void hello() {
     std::cout << "Hello world!";
