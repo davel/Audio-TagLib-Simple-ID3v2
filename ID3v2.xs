@@ -7,13 +7,12 @@
 
 MODULE = Audio::TagLib::ID3v2		PACKAGE = Audio::TagLib::ID3v2
 
-void
-_load(self, filename)
-    SV  *self
-    char *filename
-PREINIT:
-    HV *real_obj = (HV *) SvRV(self);
+Audio::TagLib::ID3v2 * tagger_new(package, filename)
+    const char *package
+    const char *filename
+
 CODE:
-    id3v2_wrapper_data *data = _wrapper_load(filename);
-    hv_store(real_obj, "data", 4, data, 0);
+     RETVAL = _wrapper_load(filename);
+OUTPUT:
+    RETVAL
 

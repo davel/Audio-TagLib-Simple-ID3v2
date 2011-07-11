@@ -14,12 +14,6 @@ WriteMakefile(
     INC               => '-I. -I/usr/include/taglib/', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
     # OBJECT            => '$(O_FILES)', # link all the C files too
-    MYEXTLIB          => 'id3v2_wrapper$(LIB_EXT)',
+    OBJECT            => "id3v2_wrapper.o",
 );
 
-sub MY::postamble {
-"
-\$(MYEXTLIB): id3v2_wrapper.cc id3v2_wrapper.h Makefile
-\tg++ -c id3v2_wrapper.cc \$(INC) \$(CCFLAGS) \$(OPTIMISE) -o id3v2_wrapper\$(LIB_EXT)
-";
-}

@@ -1,49 +1,17 @@
 package Audio::TagLib::ID3v2;
 
 use 5.010001;
-use Moose;
-use MooseX::Types::Moose qw/ Str /;
+use strict;
+use warnings;
 
-# require Exporter;
-
-# our @ISA = qw(Exporter);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use Audio::TagLib::ID3v2 ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-# our %EXPORT_TAGS = ( 'all' => [ qw(
-# 	
-# ) ] );
-
-# our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-# our @EXPORT = qw(
-# 	
-# );
-
+use XSLoader;
+our @ISA = ();
 our $VERSION = '0.01';
 
-require XSLoader;
 XSLoader::load('Audio::TagLib::ID3v2', $VERSION);
 
 # Preloaded methods go here.
 
-has filename => (
-    is => 'ro',
-    isa => Str,
-    required => 1,
-);
-
-sub BUILD {
-    my ($self) = @_;
-    $self->_load($self->filename);
-}
-
-__PACKAGE__->meta->make_immutable;
 1;
 __END__
 # Below is stub documentation for your module. You'd better edit it!
