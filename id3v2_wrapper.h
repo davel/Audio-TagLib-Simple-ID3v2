@@ -5,10 +5,10 @@ extern "C" {
 
     typedef struct {
         void *file;
-    } Audio__TagLib__ID3v2;
+    } Audio__TagLib__Simple__ID3v2;
 
 
-    Audio__TagLib__ID3v2 * _wrapper_load(const char *filename);
+    Audio__TagLib__Simple__ID3v2 * _wrapper_load(const char *filename);
 
 #ifdef __cplusplus
 }

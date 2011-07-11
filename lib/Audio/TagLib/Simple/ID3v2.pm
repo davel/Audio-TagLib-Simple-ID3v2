@@ -1,4 +1,4 @@
-package Audio::TagLib::ID3v2;
+package Audio::TagLib::Simple::ID3v2;
 
 use 5.010001;
 use strict;
@@ -8,7 +8,7 @@ use XSLoader;
 our @ISA = ();
 our $VERSION = '0.01';
 
-XSLoader::load('Audio::TagLib::ID3v2', $VERSION);
+XSLoader::load('Audio::TagLib::Simple::ID3v2', $VERSION);
 
 # Preloaded methods go here.
 
@@ -18,16 +18,16 @@ __END__
 
 =head1 NAME
 
-Audio::TagLib::ID3v2 - Perl extension for blah blah blah
+Audio::TagLib::Simple::ID3v2 - Perl extension for blah blah blah
 
 =head1 SYNOPSIS
 
-  use Audio::TagLib::ID3v2;
+  use Audio::TagLib::Simple::ID3v2;
   blah blah blah
 
 =head1 DESCRIPTION
 
-Stub documentation for Audio::TagLib::ID3v2, created by h2xs. It looks like the
+Stub documentation for Audio::TagLib::Simple::ID3v2, created by h2xs. It looks like the
 author of the extension was negligent enough to leave the stub
 unedited.
 
@@ -52,7 +52,7 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-Dave Lambley, E<lt>davel@E<gt>
+Dave Lambley, E<lt>davel@state51.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

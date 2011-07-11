@@ -5,12 +5,12 @@
 #include "ppport.h"
 #include "id3v2_wrapper.h"
 
-MODULE = Audio::TagLib::ID3v2Ptr		PACKAGE = Audio::TagLib::ID3v2Ptr      PREFIX = tagger_
+MODULE = Audio::TagLib::Simple::ID3v2Ptr		PACKAGE = Audio::TagLib::Simple::ID3v2Ptr      PREFIX = tagger_
 PROTOTYPES: ENABLE
 
 void
 tagger_frob(self)
-    Audio::TagLib::ID3v2 * self
+    Audio::TagLib::Simple::ID3v2 * self
 CODE:
     printf("hallo\n");
 
@@ -18,10 +18,10 @@ CODE:
 
 
 
-MODULE = Audio::TagLib::ID3v2		PACKAGE = Audio::TagLib::ID3v2      PREFIX = tagger_
+MODULE = Audio::TagLib::Simple::ID3v2		PACKAGE = Audio::TagLib::Simple::ID3v2      PREFIX = tagger_
 PROTOTYPES: ENABLE
 
-Audio::TagLib::ID3v2 *
+Audio::TagLib::Simple::ID3v2 *
 tagger_new(package, filename)
     char *package
     char *filename

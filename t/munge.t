@@ -5,10 +5,10 @@ use warnings;
 use Test::More;
 use FindBin;
 
-use Audio::TagLib::ID3v2;
+use Audio::TagLib::Simple::ID3v2;
 
-my $o = Audio::TagLib::ID3v2->new( "$FindBin::Bin/tone.mp3" );
-isa_ok($o, 'Audio::TagLib::ID3v2Ptr');
+my $o = Audio::TagLib::Simple::ID3v2->new( "$FindBin::Bin/tone.mp3" );
+isa_ok($o, 'Audio::TagLib::Simple::ID3v2Ptr');
 $o->frob();
 
 done_testing();
