@@ -28,6 +28,12 @@ tagger_add_tag(self, name, value)
 CODE:
     _wrapper_add_tag(self, name, value, SvUTF8(ST(1)), SvUTF8(ST(2)));
 
+void
+tagger_DESTROY(self)
+    Audio::TagLib::Simple::ID3v2 * self
+CODE:
+    _wrapper_destroy(self);
+
 
 MODULE = Audio::TagLib::Simple::ID3v2		PACKAGE = Audio::TagLib::Simple::ID3v2      PREFIX = tagger_
 PROTOTYPES: ENABLE
