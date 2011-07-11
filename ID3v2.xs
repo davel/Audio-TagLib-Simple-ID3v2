@@ -9,12 +9,31 @@ MODULE = Audio::TagLib::Simple::ID3v2Ptr		PACKAGE = Audio::TagLib::Simple::ID3v2
 PROTOTYPES: ENABLE
 
 void
-tagger_frob(self)
+tagger_strip_all_tags(self)
     Audio::TagLib::Simple::ID3v2 * self
 CODE:
-    printf("hallo\n");
+    _wrapper_strip_all_tags(self);
 
+void
+tagger_write(self)
+    Audio::TagLib::Simple::ID3v2 * self
+CODE:
+    _wrapper_write(self);
 
+void
+tagger_add_tag(self, name, value)
+    Audio::TagLib::Simple::ID3v2 * self
+    char *name
+    char *value
+CODE:
+    if (SvUTF8(ST(0))) {
+        printf("got utf8");
+    }
+    else {
+        printf("got latin1");
+    }
+
+    
 
 
 
