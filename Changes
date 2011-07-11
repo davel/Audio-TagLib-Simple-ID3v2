@@ -1,0 +1,6 @@
+Revision history for Perl extension Audio::TagLib::ID3v2.
+
+0.01  Mon Jul 11 12:45:38 2011
+	- original version; created by h2xs 1.23 with options
+		-A -n Audio::TagLib::ID3v2
+

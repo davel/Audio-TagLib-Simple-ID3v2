@@ -1,0 +1,8 @@
+Changes
+ID3v2.xs
+Makefile.PL
+MANIFEST
+ppport.h
+README
+t/Audio-TagLib-ID3v2.t
+lib/Audio/TagLib/ID3v2.pm
