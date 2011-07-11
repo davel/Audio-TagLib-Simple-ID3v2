@@ -2,8 +2,8 @@
 #include <mpegfile.h>
 #include "id3v2_wrapper.h"
 
-id3v2_wrapper_data * _wrapper_load(const char *filename) {
-    id3v2_wrapper_data *data = new id3v2_wrapper_data;
+Audio__TagLib__ID3v2 * _wrapper_load(const char *filename) {
+    Audio__TagLib__ID3v2 *data = new Audio__TagLib__ID3v2;
     data->file = (void *) new TagLib::MPEG::File( filename );
 
     return data;

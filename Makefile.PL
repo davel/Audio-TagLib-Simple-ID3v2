@@ -14,6 +14,6 @@ WriteMakefile(
     INC               => '-I. -I/usr/include/taglib/', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
     # OBJECT            => '$(O_FILES)', # link all the C files too
-    OBJECT            => '$(O_FILES) id3v2_wrapper.o',
+    OBJECT            => '$(O_FILES)',
 );
 
