@@ -13,5 +13,9 @@ WriteMakefile(
     DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
     INC               => '-I. -I/usr/include/taglib/', # e.g., '-I. -I/usr/include/other'
     OBJECT            => '$(O_FILES)', # link all the C files too
+    BUILD_REQUIRES    => {
+        'MP3::Tag'    => 1,
+        'Test::More'  => 1,
+    }
 );
 

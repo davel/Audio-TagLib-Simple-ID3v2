@@ -22,7 +22,7 @@ void _wrapper_write(Audio__TagLib__Simple__ID3v2 *data) {
     printf("save!");
 }
 
-void add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *tag_value, int type_utf8, int value_utf8) {
+void _wrapper_add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *tag_value, int type_utf8, int value_utf8) {
     TagLib::ByteVector _type(tag_name);
     TagLib::String _value(tag_value, value_utf8 ? TagLib::String::UTF8 : TagLib::String::Latin1);
 

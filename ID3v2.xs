@@ -26,7 +26,7 @@ tagger_add_tag(self, name, value)
     char *name
     char *value
 CODE:
-    _wrapper_add_tag(self, name, value, SvUTF(ST(1)), SvUTF8(ST(2)));
+    _wrapper_add_tag(self, name, value, SvUTF8(ST(1)), SvUTF8(ST(2)));
 
 
 MODULE = Audio::TagLib::Simple::ID3v2		PACKAGE = Audio::TagLib::Simple::ID3v2      PREFIX = tagger_
@@ -40,6 +40,4 @@ CODE:
     RETVAL = _wrapper_load(filename);
 OUTPUT:
     RETVAL
-
-
 
