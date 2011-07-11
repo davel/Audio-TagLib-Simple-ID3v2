@@ -5,6 +5,19 @@
 #include "ppport.h"
 #include "id3v2_wrapper.h"
 
+MODULE = Audio::TagLib::ID3v2Ptr		PACKAGE = Audio::TagLib::ID3v2Ptr      PREFIX = tagger_
+PROTOTYPES: ENABLE
+
+void
+tagger_frob(self)
+    Audio::TagLib::ID3v2 * self
+CODE:
+    printf("hallo\n");
+
+
+
+
+
 MODULE = Audio::TagLib::ID3v2		PACKAGE = Audio::TagLib::ID3v2      PREFIX = tagger_
 PROTOTYPES: ENABLE
 
@@ -16,4 +29,6 @@ CODE:
     RETVAL = _wrapper_load(filename);
 OUTPUT:
     RETVAL
+
+
 
