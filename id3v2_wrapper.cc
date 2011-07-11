@@ -31,3 +31,8 @@ void _wrapper_add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, 
     TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
     tag->addFrame(frame);
 }
+
+void _wrapper_destroy(Audio__TagLib__Simple__ID3v2 *data) {
+    delete data->file;
+    delete data;
+}
