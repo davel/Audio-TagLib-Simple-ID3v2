@@ -26,15 +26,7 @@ tagger_add_tag(self, name, value)
     char *name
     char *value
 CODE:
-    if (SvUTF8(ST(0))) {
-        printf("got utf8");
-    }
-    else {
-        printf("got latin1");
-    }
-
-    
-
+    _wrapper_add_tag(self, name, value, SvUTF(ST(1)), SvUTF8(ST(2)));
 
 
 MODULE = Audio::TagLib::Simple::ID3v2		PACKAGE = Audio::TagLib::Simple::ID3v2      PREFIX = tagger_
