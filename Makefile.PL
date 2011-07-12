@@ -16,6 +16,7 @@ WriteMakefile(
     BUILD_REQUIRES    => {
         'MP3::Tag'    => 0,
         'Test::More'  => 0,
+        'File::Slurp' => 0,
     }
 );
 
