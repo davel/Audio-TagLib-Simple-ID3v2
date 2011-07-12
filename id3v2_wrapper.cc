@@ -6,7 +6,6 @@
 #include <attachedpictureframe.h>
 
 #include "id3v2_wrapper.h"
-#include <stdio.h>
 
 Audio__TagLib__Simple__ID3v2 * _wrapper_load(const char *filename) {
     Audio__TagLib__Simple__ID3v2 *data = new Audio__TagLib__Simple__ID3v2;
@@ -17,12 +16,10 @@ Audio__TagLib__Simple__ID3v2 * _wrapper_load(const char *filename) {
 
 void _wrapper_strip_all_tags(Audio__TagLib__Simple__ID3v2 *data) {
     dynamic_cast<TagLib::MPEG::File *>(data->file)->strip( TagLib::MPEG::File::AllTags );
-    printf("stripped!");
 }
 
 void _wrapper_write(Audio__TagLib__Simple__ID3v2 *data) {
     dynamic_cast<TagLib::MPEG::File *>(data->file)->save( TagLib::MPEG::File::AllTags );
-    printf("save!");
 }
 
 void _wrapper_add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *tag_value) {
