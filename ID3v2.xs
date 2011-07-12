@@ -99,6 +99,35 @@ CODE:
     if (picture != _picture) Safefree(picture);
 
 void
+tagger_add_url(self, _tag_name, _text, _url)
+    Audio::TagLib::Simple::ID3v2 * self
+    char *_tag_name
+    char *_text
+    char *_url
+CODE:
+    char *tag_name = _tag_name;
+    char *text = _text;
+    char *url = _url;
+
+
+    STRLEN len;
+    SvPV(ST(1), len);
+    if (!SvUTF8(ST(1))) tag_name  = bytes_to_utf8(tag_name, &len);
+    
+    SvPV(ST(2), len);
+    if (!SvUTF8(ST(2))) text = bytes_to_utf8(text, &len);
+
+    SvPV(ST(3), len);
+    if (!SvUTF8(ST(3))) url = bytes_to_utf8(url, &len);
+
+    printf("starting with url %s\n", url);
+    _wrapper_add_url(self, tag_name, text, url);
+
+    if (tag_name != _tag_name) Safefree(tag_name);
+    if (text != _text) Safefree(text);
+    if (url != _url) Safefree(url);
+
+void
 tagger_DESTROY(self)
     Audio::TagLib::Simple::ID3v2 * self
 CODE:

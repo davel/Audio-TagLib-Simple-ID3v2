@@ -4,6 +4,11 @@
 #include <id3v2tag.h>
 #include <commentsframe.h>
 #include <attachedpictureframe.h>
+#include <urllinkframe.h>
+
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "id3v2_wrapper.h"
 
@@ -55,6 +60,24 @@ void _wrapper_add_picture(Audio__TagLib__Simple__ID3v2 *data, const char *mime_t
     frame->setMimeType(_mime_type);
     frame->setDescription(_description);
     frame->setPicture(_picture);
+    TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
+    tag->addFrame(frame);
+}
+
+void _wrapper_add_url(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *text, const char *url) {
+    TagLib::ByteVector _tag_name(tag_name);
+    TagLib::String _text(text, TagLib::String::UTF8);
+    TagLib::String _url(url, TagLib::String::UTF8);
+
+    printf("text: %s\nurl: %s\n", text, url);
+
+    assert(_tag_name.size() == 4);
+    assert(strcmp(tag_name, "WXXX")==0);
+
+    TagLib::ID3v2::UserUrlLinkFrame *frame = new TagLib::ID3v2::UserUrlLinkFrame();
+    frame->setUrl(_url);
+    frame->setText(_text);
+    frame->setTextEncoding(TagLib::String::UTF8);
     TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
     tag->addFrame(frame);
 }

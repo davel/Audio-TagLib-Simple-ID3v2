@@ -7,6 +7,7 @@ use FindBin;
 use File::Temp qw/ tempdir /;
 use MP3::Tag;
 use File::Slurp;
+use Data::Dumper;
 
 use Audio::TagLib::Simple::ID3v2;
 
@@ -22,6 +23,9 @@ my $packshot = File::Slurp::slurp("$FindBin::Bin/pic.png");
     $o->add_comment("ENG", "foo", "blah");
     $o->add_comment("ENG", "", "XYZZY");
     $o->add_comment("ENG", "bar", "blah");
+
+    # TODO - believed broken, or MP3::Tag is very broken.
+    $o->add_url("WXXX", "Buy stuff", "http://www.state51.co.uk/");
     $o->write();
 
     undef $o;
@@ -29,6 +33,31 @@ my $packshot = File::Slurp::slurp("$FindBin::Bin/pic.png");
     my $m = MP3::Tag->new("$tempdir/a.mp3");
     is($m->title, "hello world\x{2603}!");
     is($m->{ID3v2}->comment, "XYZZY");
+
+    is_deeply(
+        [ $m->{ID3v2}->get_frame('COMM') ],
+        [
+            {
+                Language => 'ENG',
+                Description => 'foo',
+                Text => 'blah',
+                encoding => 3,
+            },
+            'Comments',
+            {
+                Language => 'ENG',
+                Description => '',
+                Text => 'XYZZY',
+                encoding => 3,
+            },
+            {
+                Language => 'ENG',
+                Description => 'bar',
+                Text => 'blah',
+                encoding => 3,
+            },
+        ]
+    );
 }
 {
     my $type = "TIT2";
