@@ -22,11 +22,11 @@ void _wrapper_write(Audio__TagLib__Simple__ID3v2 *data) {
     printf("save!");
 }
 
-void _wrapper_add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *tag_value, bool type_utf8, bool value_utf8) {
+void _wrapper_add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *tag_value) {
     TagLib::ByteVector _type(tag_name);
-    TagLib::String _value(tag_value, value_utf8 ? TagLib::String::UTF8 : TagLib::String::Latin1);
+    TagLib::String _value(tag_value, TagLib::String::UTF8);
 
-    TagLib::ID3v2::TextIdentificationFrame *frame = new TagLib::ID3v2::TextIdentificationFrame(_type, type_utf8 ? TagLib::String::UTF8 : TagLib::String::Latin1 );
+    TagLib::ID3v2::TextIdentificationFrame *frame = new TagLib::ID3v2::TextIdentificationFrame(_type, TagLib::String::UTF8);
     frame->setText(_value);
     TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
     tag->addFrame(frame);

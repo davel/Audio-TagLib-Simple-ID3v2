@@ -38,7 +38,7 @@ CODE:
     SvPV(ST(2), len);
     if (!SvUTF8(ST(2))) value = bytes_to_utf8(value, &len);
 
-    _wrapper_add_tag(self, name, value, 1, 1);
+    _wrapper_add_tag(self, name, value);
 
     if (name  != _name) Safefree(name);
     if (value != _value) Safefree(value);
