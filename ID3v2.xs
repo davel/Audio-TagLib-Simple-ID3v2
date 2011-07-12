@@ -23,13 +23,11 @@ CODE:
 void
 tagger_add_tag(self, _name, _value)
     Audio::TagLib::Simple::ID3v2 * self
-    const char *_name
-    const char *_value
+    char *_name
+    char *_value
 CODE:
     char *name = _name;
     char *value = _value;
-
-    bool conv;
 
     STRLEN len;
     SvPV(ST(1), len);
@@ -42,6 +40,33 @@ CODE:
 
     if (name  != _name) Safefree(name);
     if (value != _value) Safefree(value);
+
+void
+tagger_add_comment(self, _language, _description, _text)
+    Audio::TagLib::Simple::ID3v2 * self
+    char *_language
+    char *_description
+    char *_text
+CODE:
+    char *language = _language;
+    char *description = _description;
+    char *text = _text;
+
+    STRLEN len;
+    SvPV(ST(1), len);
+    if (!SvUTF8(ST(1))) language  = bytes_to_utf8(language, &len);
+    
+    SvPV(ST(2), len);
+    if (!SvUTF8(ST(2))) description = bytes_to_utf8(description, &len);
+
+    SvPV(ST(3), len);
+    if (!SvUTF8(ST(3))) text = bytes_to_utf8(text, &len);
+
+    _wrapper_add_comment(self, language, description, text);
+
+    if (language != _language) Safefree(language);
+    if (description != _description) Safefree(description);
+    if (text != _text) Safefree(text);
 
 void
 tagger_DESTROY(self)

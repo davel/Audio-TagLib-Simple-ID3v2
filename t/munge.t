@@ -17,12 +17,16 @@ my $tempdir = tempdir( CLEANUP => 1 );
     isa_ok($o, 'Audio::TagLib::Simple::ID3v2Ptr');
     $o->strip_all_tags();
     $o->add_tag("TIT2", "hello world\x{2603}!");
+    $o->add_comment("ENG", "foo", "blah");
+    $o->add_comment("ENG", "", "XYZZY");
+    $o->add_comment("ENG", "bar", "blah");
     $o->write();
 
     undef $o;
 
     my $m = MP3::Tag->new("$tempdir/a.mp3");
     is($m->title, "hello world\x{2603}!");
+    is($m->{ID3v2}->comment, "XYZZY");
 }
 {
     my $type = "TIT2";

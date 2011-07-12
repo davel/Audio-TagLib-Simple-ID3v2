@@ -2,6 +2,8 @@
 #include <mpegfile.h>
 #include <textidentificationframe.h>
 #include <id3v2tag.h>
+#include <commentsframe.h>
+
 #include "id3v2_wrapper.h"
 #include <stdio.h>
 
@@ -31,6 +33,20 @@ void _wrapper_add_tag(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, 
     TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
     tag->addFrame(frame);
 }
+
+void _wrapper_add_comment(Audio__TagLib__Simple__ID3v2 *data, const char *language, const char *description, const char *text) {
+    TagLib::ByteVector _language(language);
+    TagLib::String _description(description, TagLib::String::UTF8);
+    TagLib::String _text(text, TagLib::String::UTF8);
+
+    TagLib::ID3v2::CommentsFrame *frame = new TagLib::ID3v2::CommentsFrame(TagLib::String::UTF8);
+    frame->setLanguage(_language);
+    frame->setDescription(_description);
+    frame->setText(_text);
+    TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
+    tag->addFrame(frame);
+}
+
 
 void _wrapper_destroy(Audio__TagLib__Simple__ID3v2 *data) {
     delete data->file;
