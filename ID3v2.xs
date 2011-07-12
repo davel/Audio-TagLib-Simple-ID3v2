@@ -21,12 +21,29 @@ CODE:
     _wrapper_write(self);
 
 void
-tagger_add_tag(self, name, value)
+tagger_add_tag(self, _name, _value)
     Audio::TagLib::Simple::ID3v2 * self
-    char *name
-    char *value
+    const char *_name
+    const char *_value
 CODE:
-    _wrapper_add_tag(self, name, value, SvUTF8(ST(1)), SvUTF8(ST(2)));
+    char *name = _name;
+    char *value = _value;
+
+    bool conv;
+
+    STRLEN len;
+    SvPV(ST(1), len);
+    conv=1;
+    if (!SvUTF8(ST(1))) name  = bytes_from_utf8(name, &len, &conv);
+    
+    SvPV(ST(2), len);
+    conv=1;
+    if (!SvUTF8(ST(2))) value = bytes_from_utf8(value, &len, &conv);
+
+    _wrapper_add_tag(self, name, value, 1, 1);
+
+    if (name  != _name) Safefree(name);
+    if (value != _value) Safefree(value);
 
 void
 tagger_DESTROY(self)
