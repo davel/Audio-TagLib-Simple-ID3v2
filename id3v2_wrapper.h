@@ -2,7 +2,7 @@
 #ifdef __cplusplus
 extern "C" {
     typedef struct {
-        TagLib::File::File *file;
+        TagLib::File *file;
     } Audio__TagLib__Simple__ID3v2;
 
 
