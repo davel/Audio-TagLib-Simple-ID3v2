@@ -6,10 +6,12 @@ use Test::More;
 use FindBin;
 use File::Temp qw/ tempdir /;
 use MP3::Tag;
+use File::Slurp;
 
 use Audio::TagLib::Simple::ID3v2;
 
 my $tempdir = tempdir( CLEANUP => 1 );
+my $packshot = File::Slurp::slurp("$FindBin::Bin/pic.png");
 
 {
     is(system("cp", "--", "$FindBin::Bin/tone.mp3", "$tempdir/a.mp3"), 0);
@@ -59,6 +61,32 @@ my $tempdir = tempdir( CLEANUP => 1 );
     is(MP3::Tag->new("$tempdir/b.mp3")->title, $value);
 }
 
+{
+    my $desc = "cover art";
+    my $p = $packshot;
+
+    utf8::downgrade($desc);
+    utf8::downgrade($p);
+    ok !utf8::is_utf8($desc);
+    ok !utf8::is_utf8($p);
+
+    is(system("cp", "--", "$FindBin::Bin/tone.mp3", "$tempdir/a.mp3"), 0);
+    my $a = Audio::TagLib::Simple::ID3v2->new( "$tempdir/a.mp3" );
+    $a->add_picture("image/png", $desc, $p, 0x03);
+    $a->write();
+
+    utf8::upgrade($desc);
+    utf8::upgrade($p);
+    ok utf8::is_utf8($desc);
+    ok utf8::is_utf8($p);
+
+    is(system("cp", "--", "$FindBin::Bin/tone.mp3", "$tempdir/b.mp3"), 0);
+    my $b = Audio::TagLib::Simple::ID3v2->new( "$tempdir/b.mp3" );
+    $b->add_picture("image/png", $desc, $p, 0x03);
+    $b->write();
+
+    is(system("diff", "$tempdir/a.mp3", "$tempdir/b.mp3"), 0);
+}
 
 
 done_testing();

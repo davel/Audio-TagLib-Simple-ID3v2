@@ -69,6 +69,36 @@ CODE:
     if (text != _text) Safefree(text);
 
 void
+tagger_add_picture(self, _mime_type, _description, _picture, _type)
+    Audio::TagLib::Simple::ID3v2 * self
+    char *_mime_type
+    char *_description
+    char *_picture
+    int _type;
+CODE:
+    char *mime_type = _mime_type;
+    char *description = _description;
+    char *picture = _picture;
+
+    STRLEN len;
+    SvPV(ST(1), len);
+    if (!SvUTF8(ST(1))) mime_type = bytes_to_utf8(mime_type, &len);
+    
+    SvPV(ST(2), len);
+    if (!SvUTF8(ST(2))) description = bytes_to_utf8(description, &len);
+
+    // We want to make sure that the picture *isn't* UTF8 encoded.
+    bool conv = SvUTF8(ST(3))!=0;
+    SvPV(ST(3), len);
+    picture = bytes_from_utf8(picture, &len, &conv);
+
+    _wrapper_add_picture(self, mime_type, description, picture, len, _type);
+
+    if (mime_type != _mime_type) Safefree(mime_type);
+    if (description != _description) Safefree(description);
+    if (picture != _picture) Safefree(picture);
+
+void
 tagger_DESTROY(self)
     Audio::TagLib::Simple::ID3v2 * self
 CODE:
