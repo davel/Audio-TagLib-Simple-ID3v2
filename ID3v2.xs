@@ -33,12 +33,10 @@ CODE:
 
     STRLEN len;
     SvPV(ST(1), len);
-    conv=1;
-    if (!SvUTF8(ST(1))) name  = bytes_from_utf8(name, &len, &conv);
+    if (!SvUTF8(ST(1))) name  = bytes_to_utf8(name, &len);
     
     SvPV(ST(2), len);
-    conv=1;
-    if (!SvUTF8(ST(2))) value = bytes_from_utf8(value, &len, &conv);
+    if (!SvUTF8(ST(2))) value = bytes_to_utf8(value, &len);
 
     _wrapper_add_tag(self, name, value, 1, 1);
 
