@@ -127,6 +127,46 @@ CODE:
     if (text != _text) Safefree(text);
     if (url != _url) Safefree(url);
 
+void 
+tagger_add_list(self, _tag_name, ...)
+    Audio::TagLib::Simple::ID3v2 * self
+    char *_tag_name
+CODE:
+    char *tag_name = _tag_name;
+    char **list;
+    bool *list_need_free;
+
+    STRLEN len;
+    SvPV(ST(1), len);
+    if (!SvUTF8(ST(1))) tag_name  = bytes_to_utf8(tag_name, &len);
+
+    Newx(list, items, char *);
+    Newx(list_need_free, (items-1), bool);
+
+    int i;
+    for (i=2; i<items; i++) {
+        if (SvUTF8(ST(i))) {
+            list[i-2]=SvPV_nolen(ST(i));
+            list_need_free[i-2] = 0;
+        }
+        else {
+            STRLEN len;
+            SvPV(ST(i), len);
+            list[i-2] = bytes_to_utf8(SvPV_nolen(ST(i)), &len);
+            list_need_free[i-1] = 1;
+        }
+    }
+    list[i-2] = NULL;
+
+    _wrapper_add_list(self, tag_name, list);
+
+    for (i=0; i<items-2; i++) {
+        if (list_need_free[i]) Safefree(list[i]);
+    }
+
+    Safefree(list);
+    Safefree(list_need_free);
+
 void
 tagger_DESTROY(self)
     Audio::TagLib::Simple::ID3v2 * self

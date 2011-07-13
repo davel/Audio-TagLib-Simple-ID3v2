@@ -19,6 +19,7 @@ extern "C" {
     void _wrapper_add_picture(Audio__TagLib__Simple__ID3v2 *data, const char *mime_type, const char *description, const char *picture, unsigned int length, int type);
     void _wrapper_destroy(Audio__TagLib__Simple__ID3v2 *data);
     void _wrapper_add_url(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *text, const char *url);
+    void _wrapper_add_list(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *list[]);
 
 #ifdef __cplusplus
 }

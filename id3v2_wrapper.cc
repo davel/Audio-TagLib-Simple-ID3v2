@@ -5,6 +5,7 @@
 #include <commentsframe.h>
 #include <attachedpictureframe.h>
 #include <urllinkframe.h>
+#include <tstringlist.h>
 
 #include <assert.h>
 #include <stdio.h>
@@ -81,6 +82,24 @@ void _wrapper_add_url(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, 
     TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
     tag->addFrame(frame);
 }
+
+void _wrapper_add_list(Audio__TagLib__Simple__ID3v2 *data, const char *tag_name, const char *list[]) {
+    TagLib::ByteVector _tag_name(tag_name);
+    TagLib::StringList _strings;
+
+    const char **i = list;
+    while (*i) {
+        TagLib::String s(*i, TagLib::String::UTF8);
+        _strings.append(s);
+        i++;
+    }
+ 
+    TagLib::ID3v2::TextIdentificationFrame *frame = new TagLib::ID3v2::TextIdentificationFrame(_tag_name, TagLib::String::UTF8);
+    frame->setText(_strings);
+    TagLib::ID3v2::Tag *tag = dynamic_cast<TagLib::MPEG::File *>(data->file)->ID3v2Tag(true);
+    tag->addFrame(frame);
+   
+};
 
 void _wrapper_destroy(Audio__TagLib__Simple__ID3v2 *data) {
     delete data->file;
