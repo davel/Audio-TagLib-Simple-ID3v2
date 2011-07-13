@@ -26,7 +26,7 @@ my $packshot = File::Slurp::slurp("$FindBin::Bin/pic.png");
 
     # TODO - believed broken, or MP3::Tag is very broken.
     $o->add_url("WXXX", "Buy stuff", "http://www.state51.co.uk/");
-    $o->add_list("TIPL", Roadie => "Dave", Chef => "Gary");
+    $o->add_list("TIPL", Roadie => "Dave\x{2603}", Chef => "Gary");
     $o->write();
 
     undef $o;
@@ -62,7 +62,7 @@ my $packshot = File::Slurp::slurp("$FindBin::Bin/pic.png");
     is_deeply(
         [ $m->{ID3v2}->get_frame("TIPL") ],
         [
-            'Roadie / Dave / Chef / Gary',
+            "Roadie / Dave\x{2603} / Chef / Gary",
             'Involved people list',
         ]
     );
